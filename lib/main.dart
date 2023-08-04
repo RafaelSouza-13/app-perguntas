@@ -1,5 +1,5 @@
-import 'package:app_perguntas/componentes/titulo.dart';
-import 'package:app_perguntas/componentes/botao.dart';
+import 'package:app_perguntas/componentes/questionario.dart';
+import 'package:app_perguntas/componentes/resultado.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,22 +17,50 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title});
   final String title;
   final List<Map<String, Object>> _perguntas = const [
     {
-      'Texto': 'Qual sua estação do ano favorita?',
-      'Respostas': ['Verão', 'Outono', 'Inverno', 'Primavera']
+      'Texto': 'De quem é a famosa frase “Penso, logo existo”?',
+      'Respostas': [
+        {'Texto': 'Platão', 'Nota': 0},
+        {'Texto': 'Galileu Galilei', 'Nota': 0},
+        {'Texto': 'Descartes', 'Nota': 0},
+        {'Texto': 'Descartes', 'Nota': 0},
+      ]
     },
     {
-      'Texto': 'Qual sua cor favorita?',
-      'Respostas': ['Resposta 1', 'Resposta 2', 'Resposta 3']
+      'Texto': 'De onde é a invenção do chuveiro elétrico?',
+      'Respostas': [
+        {'Texto': 'França', 'Nota': 0},
+        {'Texto': 'Inglaterra', 'Nota': 0},
+        {'Texto': 'Brasil', 'Nota': 10},
+        {'Texto': 'Austrália', 'Nota': 0},
+      ]
+    },
+    {
+      'Texto': 'Quais o menor e o maior país do mundo?',
+      'Respostas': [
+        {'Texto': 'Vaticano e Rússia', 'Nota': 10},
+        {'Texto': 'Nauru e China', 'Nota': 0},
+        {'Texto': 'Mônaco e Canadá', 'Nota': 0},
+        {'Texto': 'Malta e Estados Unidos', 'Nota': 0}
+      ]
+    },
+    {
+      'Texto': 'Qual o livro mais vendido no mundo a seguir à Bíblia?',
+      'Respostas': [
+        {'Texto': 'O Senhor dos Anéis', 'Nota': 0},
+        {'Texto': 'Dom Quixote', 'Nota': 10},
+        {'Texto': 'O Pequeno Príncipe', 'Nota': 0},
+        {'Texto': 'Ela, a Feiticeira', 'Nota': 0},
+      ]
     },
   ];
 
@@ -45,6 +73,12 @@ class MyHomePage extends StatefulWidget {
 //     }
 class _MyHomePageState extends State<MyHomePage> {
   int _indexPergunta = 0;
+
+  void _reiniciar() {
+    setState(() {
+      _indexPergunta = 0;
+    });
+  }
 
   void _responder() {
     if (temPergunta) {
@@ -60,16 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> listaRespostas = temPergunta
-        ? widget._perguntas[_indexPergunta].cast()['Respostas']
-        : [];
-    List<Widget> widgetsBotoes = listaRespostas
-        .map((e) => Botao(resposta: e, funcao: _responder))
-        .toList();
-    // for (String r in widget.perguntas[_indexPergunta].cast()['Resposta']) {
-    //   resposta.add(Botao(resposta: r, funcao: _responder));
-    // }
-
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -81,19 +105,13 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.blue,
       ),
       body: temPergunta
-          ? Column(
-              children: [
-                Titulo(
-                    questao:
-                        widget._perguntas[_indexPergunta]['Texto'].toString()),
-                ...widgetsBotoes,
-              ],
+          ? Questionario(
+              perguntas: widget._perguntas,
+              perguntaSelecionada: _indexPergunta,
+              quandoResponder: _responder,
             )
-          : const Center(
-              child: Text(
-                'Parabéns',
-                style: TextStyle(fontSize: 24),
-              ),
+          : Resultado(
+              resetar: _reiniciar,
             ),
     );
   }
