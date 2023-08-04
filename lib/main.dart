@@ -31,8 +31,8 @@ class MyHomePage extends StatefulWidget {
       'Respostas': [
         {'Texto': 'Platão', 'Nota': 0},
         {'Texto': 'Galileu Galilei', 'Nota': 0},
-        {'Texto': 'Descartes', 'Nota': 0},
-        {'Texto': 'Descartes', 'Nota': 0},
+        {'Texto': 'Descartes', 'Nota': 10},
+        {'Texto': 'Sócrates', 'Nota': 0},
       ]
     },
     {
