@@ -1,6 +1,6 @@
 # app_perguntas
 
-A new Flutter project.
+Primeiro projeto do curso de flutter cod3r na udemy.
 
 ## Getting Started
 
