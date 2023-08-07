@@ -29,37 +29,37 @@ class MyHomePage extends StatefulWidget {
     {
       'Texto': 'De quem é a famosa frase “Penso, logo existo”?',
       'Respostas': [
-        {'Texto': 'Platão', 'Nota': 0},
-        {'Texto': 'Galileu Galilei', 'Nota': 0},
-        {'Texto': 'Descartes', 'Nota': 10},
-        {'Texto': 'Sócrates', 'Nota': 0},
+        {'Texto': 'Platão', 'pontuacao': 0},
+        {'Texto': 'Galileu Galilei', 'pontuacao': 0},
+        {'Texto': 'Descartes', 'pontuacao': 10},
+        {'Texto': 'Sócrates', 'pontuacao': 0},
       ]
     },
     {
       'Texto': 'De onde é a invenção do chuveiro elétrico?',
       'Respostas': [
-        {'Texto': 'França', 'Nota': 0},
-        {'Texto': 'Inglaterra', 'Nota': 0},
-        {'Texto': 'Brasil', 'Nota': 10},
-        {'Texto': 'Austrália', 'Nota': 0},
+        {'Texto': 'França', 'pontuacao': 0},
+        {'Texto': 'Inglaterra', 'pontuacao': 0},
+        {'Texto': 'Brasil', 'pontuacao': 10},
+        {'Texto': 'Austrália', 'pontuacao': 0},
       ]
     },
     {
       'Texto': 'Quais o menor e o maior país do mundo?',
       'Respostas': [
-        {'Texto': 'Vaticano e Rússia', 'Nota': 10},
-        {'Texto': 'Nauru e China', 'Nota': 0},
-        {'Texto': 'Mônaco e Canadá', 'Nota': 0},
-        {'Texto': 'Malta e Estados Unidos', 'Nota': 0}
+        {'Texto': 'Vaticano e Rússia', 'pontuacao': 10},
+        {'Texto': 'Nauru e China', 'pontuacao': 0},
+        {'Texto': 'Mônaco e Canadá', 'pontuacao': 0},
+        {'Texto': 'Malta e Estados Unidos', 'pontuacao': 0}
       ]
     },
     {
       'Texto': 'Qual o livro mais vendido no mundo a seguir à Bíblia?',
       'Respostas': [
-        {'Texto': 'O Senhor dos Anéis', 'Nota': 0},
-        {'Texto': 'Dom Quixote', 'Nota': 10},
-        {'Texto': 'O Pequeno Príncipe', 'Nota': 0},
-        {'Texto': 'Ela, a Feiticeira', 'Nota': 0},
+        {'Texto': 'O Senhor dos Anéis', 'pontuacao': 0},
+        {'Texto': 'Dom Quixote', 'pontuacao': 10},
+        {'Texto': 'O Pequeno Príncipe', 'pontuacao': 0},
+        {'Texto': 'Ela, a Feiticeira', 'pontuacao': 0},
       ]
     },
   ];
@@ -73,17 +73,20 @@ class MyHomePage extends StatefulWidget {
 //     }
 class _MyHomePageState extends State<MyHomePage> {
   int _indexPergunta = 0;
+  int _pontuacaoTotal = 0;
 
   void _reiniciar() {
     setState(() {
       _indexPergunta = 0;
+      _pontuacaoTotal = 0;
     });
   }
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPergunta) {
       setState(() {
         _indexPergunta++;
+        _pontuacaoTotal += pontuacao;
       });
     }
   }
@@ -112,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           : Resultado(
               resetar: _reiniciar,
+              pontuacao: _pontuacaoTotal,
             ),
     );
   }

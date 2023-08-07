@@ -5,7 +5,7 @@ import 'package:app_perguntas/componentes/botao.dart';
 class Questionario extends StatelessWidget {
   final List<Map<String, Object>> perguntas;
   final int perguntaSelecionada;
-  final Function() quandoResponder;
+  final Function(int) quandoResponder;
   const Questionario(
       {required this.perguntas,
       required this.perguntaSelecionada,
@@ -21,8 +21,10 @@ class Questionario extends StatelessWidget {
     List<Map<String, Object>> listaRespostas =
         temPergunta ? perguntas[perguntaSelecionada].cast()['Respostas'] : [];
     List<Widget> widgetsBotoes = listaRespostas
-        .map((resp) =>
-            Botao(resposta: resp['Texto'].toString(), funcao: quandoResponder))
+        .map((resp) => Botao(
+            resposta: resp['Texto'].toString(),
+            funcao: () =>
+                quandoResponder(int.parse(resp['pontuacao'].toString()))))
         .toList();
     final String questao = perguntas[perguntaSelecionada]['Texto'].toString();
     // for (String r in widget.perguntas[_indexPergunta].cast()['Resposta']) {

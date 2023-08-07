@@ -11,13 +11,11 @@ class Botao extends StatelessWidget {
       width: double.infinity,
       child: TextButton(
         onPressed: funcao,
-        style: TextButton.styleFrom(
-            backgroundColor: Colors.blue,
-            textStyle: const TextStyle(
-              inherit: false,
-              color: Colors.white,
-            )),
-        child: Text(resposta),
+        style: TextButton.styleFrom(backgroundColor: Colors.blue),
+        child: Text(
+          resposta,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

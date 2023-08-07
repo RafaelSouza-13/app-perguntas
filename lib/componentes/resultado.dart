@@ -3,7 +3,18 @@ import 'package:flutter/material.dart';
 
 class Resultado extends StatelessWidget {
   final Function() resetar;
-  const Resultado({required this.resetar, super.key});
+  final int pontuacao;
+  const Resultado({required this.resetar, required this.pontuacao, super.key});
+
+  String get frase {
+    if (pontuacao == 40) {
+      return 'Impressionante, voce acertou tudo';
+    } else if (pontuacao < 40 && pontuacao > 10) {
+      return 'Muito bom';
+    } else {
+      return 'Parabéns';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +22,9 @@ class Resultado extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'Parabéns',
-            style: TextStyle(fontSize: 24),
+          Text(
+            frase,
+            style: const TextStyle(fontSize: 24),
           ),
           Botao(resposta: 'Reiniciar', funcao: resetar),
         ],
